@@ -1,0 +1,27 @@
+"""
+@author: ESDC team
+@contact: esdc_gacs_tech@sciops.esa.int
+European Space Astronomy Centre (ESAC)
+European Space Agency (ESA)
+Created on 8 Sep 2020
+"""
+
+current_environment=${current_environment}
+HOST_URL=${HOST_URL}
+TAP_URL=${TAP_URL}
+TAP_LOGIN=${TAP_LOGIN}
+DATALINK_URL=${DATALINK_URL}
+
+# Other values
+RESET_TEST=${RESET_TEST}
+TIME_OUT=${TIME_OUT}
+CURRENT_ENVIRONMENT=${current_environment}
+ASTROQUERY_VERSION=${ASTROQUERY_VERSION}
+GAIA_DATA_RELEASE=${GAIA_DATA_RELEASE}
+
+DB_SCHEMA_NAME=${DB_SCHEMA_NAME}
+GAIA_SOURCE_DB_NAME=${GAIA_SOURCE_DB_NAME}
+LOG_LEVEL=${LOG_LEVEL}
+
+DATA_FORMAT=${DATA_FORMAT}
+DATA_STRUCTURE=${DATA_STRUCTURE}

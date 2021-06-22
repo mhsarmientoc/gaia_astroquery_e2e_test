@@ -1,0 +1,145 @@
+body {
+	padding: 2vw;
+	margin: 0px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    line-height: 1.42857;
+    color: #333;
+    background-color: #fff;
+}
+
+h1 {
+	background-color: #003247;
+	color: #ffffff;
+	border: none;
+	border-bottom: 3px solid #003247;
+	margin: -2vw;
+	margin-bottom: 0px;
+	width: 104vw;
+	height: 70px;
+	line-height: 70px;
+	padding: 0px;
+	padding-bottom: 5px;
+	font-family: Helvetica, Arial, sans-serif;
+	text-align: center;
+}
+
+h3 {
+font-family: NotesEsaBold,"Trebuchet MS",Tahoma,Arial;
+    font-size: 14px;
+    margin: .8em 0 .2em;
+    text-transform: uppercase;
+    color: #3277a6;
+}
+
+.esa-logo-container {
+    text-align: right;
+    margin-top: -60px;
+    margin-right: 5px;
+}
+
+.mission-logo-container {
+    width: 1200;
+    margin: 0 auto;
+}
+
+.mission-logo {
+    float: center;
+    margin: 10px 10px 10px 10px;
+    margin: auto;
+    width: 250px;
+    padding: 10px;
+}
+table {
+    width: 100%;
+	background-color: #ffffff;
+	border: 2px solid #666666;
+	border-spacing: 0px;
+	text-align: left;
+    border-collapse: collapse;
+}
+
+td.first_column {
+    width:20%;
+}
+
+table td, table th {
+  border: 1px solid #CACACA;
+  padding: 5px 3px;
+}
+
+table tbody td {
+  font-size: 14px;
+  padding: 10px;
+}
+
+table tr:nth-child(odd) {
+  background: #EEEEEE;
+}
+
+td:nth-child(1) {
+  width: 20%;
+}
+
+table tfoot td {
+  font-size: 14px;
+}
+
+td {
+	border: 1px solid #000000;
+	border-spacing: 0px;
+	margin: 0px;
+	padding: 1vw;
+}
+
+th {
+	border: 1px solid #000000;
+	border-spacing: 0px;
+	margin: 0px;
+	padding: 1vw;
+}
+
+tr {
+	border: none;
+	border-spacing: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+span.passed{
+    color: green;
+}
+
+span.notPassed{
+    color: red;
+}
+
+span.testTitle{
+    color: #036e9c;
+}

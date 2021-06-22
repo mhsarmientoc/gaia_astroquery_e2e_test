@@ -1,0 +1,226 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>esac.archive.gaia.gaiapython</groupId>
+    <artifactId>AstroQueryTests</artifactId>
+    <version>0.1-local-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <description>Astroquery End To End Tests</description>
+
+    <properties>
+        <!-- Sonar properties -->
+        <sonar.host.url>http://localhost:9000/sonar/</sonar.host.url>
+        <sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco-ut/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+
+        <!-- Third-party -->
+        <sonarqube.version>3.7.0.1746</sonarqube.version>
+
+        <!-- deploy.sh properties -->
+        <!-- Ensure all the next properties are written in a SINGLE line -->
+        <!--deploy.properties_server_host>scicloudvm7204.n1grid.lan</deploy.properties_server_host-->
+        <!-- <deploy.properties_server_host>esdcconf.n1data.lan</deploy.properties_server_host>
+        <deploy.properties_server_user>geaops</deploy.properties_server_user>
+        <deploy.properties_server_remote_command>/home/geaops/passw/get_property</deploy.properties_server_remote_command>
+        <deploy.properties_server_keys>('db.postgres.pwd::${db.jobs.sync.pwd}, ${db.jobs.async.pwd}, ${db.management.pwd}, ${db.management_secondary.pwd}, ${db.gacs_data.pwd}' 'ldap.admin.user::${ldap.admin.user}' 'ldap.admin.pwd::${ldap.admin.pwd}' 'test::${test_enc}')</deploy.properties_server_keys>
+        <deploy.properties_server_encrypted>true</deploy.properties_server_encrypted>
+        <deploy.gwt_files_to_replace>('index.html::index.html' 'js/config-nocache.js::js/config-nocache.js')</deploy.gwt_files_to_replace>
+        <deploy.web_files_to_replace>('WEB-INF/web.xml::WEB-INF/web.xml' 'WEB-INF/applicationContext-security_cas-proxy-ldap-basic.xml::WEB-INF/applicationContext-security_cas-proxy-ldap-basic.xml' 'WEB-INF/classes/log4j2.xml::WEB-INF/classes/log4j2.xml' 'WEB-INF/classes/logging.properties::WEB-INF/classes/logging.properties')</deploy.web_files_to_replace>
+        <deploy.html_files_to_replace>('js/g_analytics.js::js/g_analytics.js')</deploy.html_files_to_replace> -->
+
+    </properties>
+
+    <!-- Build -->
+    <build>
+
+        <filters>
+            <filter>${basedir}/src/main/filters/${target.env}.properties</filter>
+            <!-- ADD password files if required -->
+            <filter>${basedir}/src/main/filters/${target.env}.pwd</filter>
+            <!-- ADD password files if required -->
+        </filters>
+
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <executable>python</executable>
+                    <workingdirectory>${basedir}</workingdirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>setuptools clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>setup.py</argument>
+                                <argument>clean</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>setuptools build</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>
+                                <argument>setup.py</argument>
+                                <argument>build</argument>
+                                <argument>--build-base=target</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>setuptools test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${mvn.skip.test}</skip>
+                            <executable>bash</executable>
+                            <commandlineArgs>run_tests.sh</commandlineArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/properties</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/non-packaged-resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                 <configuration>
+                     <descriptor>src/assembly/assembly.xml</descriptor>
+                     <!-- This means the id within assembler is not appended in the final
+                        tar name -->
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Dev (development) -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <target.env>dev</target.env>
+            </properties>
+        </profile>
+        <!-- Beta -->
+        <profile>
+            <id>pre</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <target.env>pre</target.env>
+            </properties>
+        </profile>
+        <!-- Val -->
+        <profile>
+            <id>val</id>
+            <properties>
+                <target.env>val</target.env>
+            </properties>
+        </profile>
+        <!-- Oper -->
+        <profile>
+            <id>oper</id>
+            <properties>
+                <target.env>oper</target.env>
+            </properties>
+        </profile>
+    </profiles>
+
+    <!-- SCM: Software configuration management (SVN) -->
+    <scm>
+        <url>https://satscm.esac.esa.int/gaia/astroquery_tests/</url>
+        <connection>scm:svn: https://satscm.esac.esa.int/gaia/astroquery_tests/trunk/</connection>
+        <developerConnection>scm:svn: https://satscm.esac.esa.int/gaia/astroquery_tests/trunk/</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>esdc-releases-repository</id>
+            <name>ESDC Release Artifacts Repository</name>
+            <url>https://scidockreg.esac.esa.int/repository/esdc-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>esdc-snapshots-repository</id>
+            <name>ESDC Snapshot Artifacts Repository</name>
+            <url>https://scidockreg.esac.esa.int/repository/esdc-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- Repository -->
+    <repositories>
+        <repository>
+            <id>esdc-public-repository</id>
+            <name>ESDC Maven Repository</name>
+            <url>https://scidockreg.esac.esa.int/repository/esdc-public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warning</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>warning</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+</project>

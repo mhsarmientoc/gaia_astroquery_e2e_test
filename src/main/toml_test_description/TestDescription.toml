@@ -1,0 +1,89 @@
+[LOGIN]
+test_name = "LOGIN"
+test_id_number = "#1"
+executed = true
+
+[LOGOUT]
+test_name = "LOGOUT"
+test_id_number = "#2"
+executed = true
+
+[QUERY_OBJECT]
+test_name = "QUERY_OBJECT"
+test_id_number = "#3"
+executed = true
+
+[CONE_SEARCH]
+test_name = "CONE_SEARCH"
+test_id_number = "#4"
+executed = true
+
+[GET_PUBLIC_TABLES]
+test_name = "GET_PUBLIC_TABLES"
+test_id_number = "#5"
+executed = true
+
+[LOAD_TABLE]
+test_name = "LOAD_TABLE"
+test_id_number = "#6"
+executed = true
+
+[SYNCHRONOUS_QUERY]
+test_name = "SYNCHRONOUS_QUERY"
+test_id_number = "#7"
+executed = true
+
+[SYNCHRONOUS_ON_THE_FLY_QUERY]
+test_name = "SYNCHRONOUS_ON_THE_FLY_QUERY"
+test_id_number = "#8"
+executed = true
+
+[ASYNCHRONOUS_QUERY]
+test_name = "ASYNCHRONOUS_QUERY"
+test_id_number = "#9"
+executed = true
+
+[LIST_SHARED_TABLES]
+test_name = "LIST_SHARED_TABLES"
+test_id_number = "#10"
+executed = true
+
+[DELETE_TABLE]
+test_name = "DELETE_TABLE"
+test_id_number = "#11"
+executed = true
+
+[UPLOAD_TABLE_FROM_URL]
+test_name = "UPLOAD_TABLE_FROM_URL"
+test_id_number = "#12"
+executed = true
+
+[UPLOAD_TABLE_FROM_FILE]
+test_name = "UPLOAD_TABLE_FROM_FILE"
+test_id_number = "#13"
+executed = true
+
+[UPLOAD_TABLE_FROM_JOB]
+test_name = "UPLOAD_TABLE_FROM_JOB"
+test_id_number = "#14"
+executed = true
+
+[UPLOAD_TABLE_FROM_ASTROPY_TABLE]
+test_name = "UPLOAD_TABLE_FROM_ASTROPY_TABLE"
+test_id_number = "#15"
+executed = true
+
+[CROSS_MATCH]
+test_name = "CROSS_MATCH"
+test_id_number = "#16"
+executed = true
+
+[DATALINK]
+test_name = "DATALINK"
+test_id_number = "#17"
+executed = true
+
+[DATALINK_COMPARE]
+test_name = "DATALINK_COMPARE"
+test_id_number = "#26"
+executed = true
